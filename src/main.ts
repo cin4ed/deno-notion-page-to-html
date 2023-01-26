@@ -142,6 +142,11 @@ export async function notionPageToHtml(
       }
       return;
     }
+
+    if (blockType == "embed") {
+      html += `<iframe src="${block.embed?.url}" frameborder="0" allowfullscreen></iframe>`;
+      return;
+    }
     if (blockType === "paragraph") {
       html += reduceRichText(block.paragraph.rich_text || []);
     } else if (blockType === "heading_1") {
