@@ -114,6 +114,15 @@ export async function notionPageToHtml(
       return;
     }
 
+    if (blockType == "file") {
+      // TODO: get children from file then reduce rich text an use it as the link text
+      if (block.file?.type === "file") {
+        html += `<a href="${block.file?.file?.url}">file</a>`;
+      } else if (block.file?.type === "external") {
+        html += `<a href="${block.file?.external?.url}">file</a>`;
+      }
+      return;
+    }
     if (blockType === "paragraph") {
       html += reduceRichText(block.paragraph.rich_text || []);
     } else if (blockType === "heading_1") {
