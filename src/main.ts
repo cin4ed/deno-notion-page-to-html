@@ -54,6 +54,12 @@ export async function notionPageToHtml(
       // html += "</ul>";
       previousWasTodoListItem = false;
     }
+
+    if (blockType !== "toggle" && previousWasToggleListItem) {
+      html += "</ol>";
+      previousWasToggleListItem = false;
+    }
+
     if (blockType === "bulleted_list_item" && !previousWasBulletedListItem) {
       html += "<ul>";
       previousWasBulletedListItem = true;
@@ -63,6 +69,12 @@ export async function notionPageToHtml(
       html += "<ol>";
       previousWasNumberedListItem = true;
     }
+
+    if (blockType === "toggle" && !previousWasToggleListItem) {
+      html += "<ol class='toggle-list'>";
+      previousWasToggleListItem = true;
+    }
+
     if (blockType === "to_do" && !previousWasTodoListItem) {
       html += '<div class="todo-list-container">';
       previousWasTodoListItem = true;
