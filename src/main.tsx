@@ -27,10 +27,72 @@ async function notionPageToHtml(
   children.results.forEach((partialBlock) => {
     // narrow down PartialBlockObjectResponse into BlockObjectResponse
     const block = partialBlock as BlockObjectResponse;
+    const blockType = block.type;
+    const htmlTag = getHtmlTag(blockType);
   });
 
   html += "</body>";
   html += "</html>";
 
   return Promise.resolve(html);
+}
+
+// function to get the corresponding html tag for every block.type
+// and append it to the html string
+function getHtmlTag(blockType: string): string {
+  switch (blockType) {
+    case "paragraph":
+      return "p";
+    case "heading_1":
+      return "h1";
+    case "heading_2":
+      return "h2";
+    case "heading_3":
+      return "h3";
+    case "bulleted_list_item":
+      return "li";
+    case "numbered_list_item":
+      return "li";
+    case "to_do":
+      return "li";
+    case "toggle":
+      return "li";
+    case "quote":
+      return "p";
+    case "code":
+      return "p";
+    case "equation":
+      return "p";
+    case "divider":
+      return "hr";
+    case "callout":
+      return "p";
+    case "image":
+      return "img";
+    case "video":
+      return "video";
+    case "embed":
+      return "unsupported";
+    // return "iframe";
+    case "pdf":
+      return "unsupported";
+    // return "iframe";
+    case "bookmark":
+      return "unsupported";
+    // return "a";
+    case "table_of_contents":
+      return "unsupported";
+    // return "p";
+    case "breadcrumb":
+      return "unsupported";
+    // return "p";
+    case "page":
+      return "unsupported";
+    // return "li";
+    case "child_page":
+      return "unsupported";
+    // return "li";
+    default:
+      return "unsupported";
+  }
 }
