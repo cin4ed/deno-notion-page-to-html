@@ -79,6 +79,12 @@ export async function notionPageToHtml(
       html += '<div class="todo-list-container">';
       previousWasTodoListItem = true;
     }
+
+    if (blockType === "equation") {
+      html += `<div class="equation">${block.equation?.expression}</div>`;
+      return;
+    }
+
     if (blockType === "paragraph") {
       html += reduceRichText(block.paragraph.rich_text || []);
     } else if (blockType === "heading_1") {
