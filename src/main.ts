@@ -28,6 +28,11 @@ async function notionPageToHtml(
     const block = partialBlock as BlockObjectResponse;
     const blockType = block.type;
     const htmlTag = getHtmlTag(blockType);
+
+    if (htmlTag === "unsupported") {
+      return;
+    }
+
   });
 
   html += "</body>";
