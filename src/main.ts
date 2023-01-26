@@ -1,4 +1,3 @@
-import { appendBlockChildren } from "https://deno.land/x/notion_sdk@v1.0.4/src/api-endpoints";
 import { Client, BlockObjectResponse, RichTextItemResponse } from "../deps.ts";
 // Consider that for a private page to be compiled into html you would need to
 // use the notion api and an integration token to query it. This is not the case
