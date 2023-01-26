@@ -11,4 +11,21 @@ async function notionPageToHtml(
   notion: Client
 ): Promise<string> {
   const children = await notion.blocks.children.list({ block_id: pageId });
+
+  // TODO: decide whether to include head tag or not
+  let html = `
+  <!DOCTYPE html>
+  <html>
+    <head>
+      <meta charset="UTF-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <head>
+    <body>
+  `;
+
+  html += "</body>";
+  html += "</html>";
+
+  return Promise.resolve(html);
 }
