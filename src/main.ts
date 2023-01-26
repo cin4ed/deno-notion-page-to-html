@@ -63,6 +63,26 @@ export async function notionPageToHtml(
       html += reduceRichText(block.to_do.rich_text);
       html += "</div>";
     }
+
+    // This are unsupported block types
+    // } else if (blockType === "table_of_contents") {
+    //   html += reduceRichText(block.table_of_contents?.rich_text);
+    // } else if (blockType === "column_list") {
+    //   html += reduceRichText(block.column_list?.rich_text);
+    // } else if (blockType === "column") {
+    //   html += reduceRichText(block.column?.rich_text);
+    // } else if (blockType === "breadcrumb") {
+    //   html += reduceRichText(block.breadcrumb?.rich_text);
+    // } else if (blockType === "fact") {
+    //   html += reduceRichText(block.fact?.rich_text);
+    // } else if (blockType === "page") {
+    //   html += reduceRichText(block.page?.rich_text);
+    // } else if (blockType === "collection_view") {
+    //   html += reduceRichText(block.collection_view?.rich_text);
+    // } else if (blockType === "collection_view_page") {
+    //   html += reduceRichText(block.collection_view_page?.rich_text);
+    // }
+
   });
 
   html += "</body>";
