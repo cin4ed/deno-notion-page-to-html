@@ -85,6 +85,14 @@ export async function notionPageToHtml(
       return;
     }
 
+    if (blockType === "image") {
+      if (block.image?.type === "file") {
+        html += `<img src="${block.image?.file?.url}" alt="${block.image?.caption?.[0]?.plain_text}">`;
+      } else if (block.image?.type === "external") {
+        html += `<img src="${block.image?.external?.url}" alt="${block.image?.caption?.[0]?.plain_text}">`;
+      }
+      return;
+    }
     if (blockType === "paragraph") {
       html += reduceRichText(block.paragraph.rich_text || []);
     } else if (blockType === "heading_1") {
