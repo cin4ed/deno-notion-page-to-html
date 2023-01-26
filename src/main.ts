@@ -108,6 +108,12 @@ export async function notionPageToHtml(
       return;
     }
 
+    if (blockType === "bookmark") {
+      // TODO: get children from bookmark then reduce rich text an use it as the link text
+      html += `<a href="${block.bookmark?.url}">bookmark</a>`;
+      return;
+    }
+
     if (blockType === "paragraph") {
       html += reduceRichText(block.paragraph.rich_text || []);
     } else if (blockType === "heading_1") {
