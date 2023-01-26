@@ -24,6 +24,12 @@ export async function notionPageToHtml(
     <body>
   `;
 
+  // this is for list handling
+  let previousWasBulletedListItem = false;
+  let previousWasNumberedListItem = false;
+  let previousWasToggleListItem = false;
+  let previousWasTodoListItem = false;
+
   children.results.forEach((partialBlock) => {
     const block = partialBlock as BlockObjectResponse;
     const blockType = block.type;
