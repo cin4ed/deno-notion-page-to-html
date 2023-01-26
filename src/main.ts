@@ -39,6 +39,30 @@ export async function notionPageToHtml(
       return;
     }
 
+    if (blockType === "paragraph") {
+      html += reduceRichText(block.paragraph.rich_text || []);
+    } else if (blockType === "heading_1") {
+      html += reduceRichText(block.heading_1.rich_text || []);
+    } else if (blockType === "heading_2") {
+      html += reduceRichText(block.heading_2.rich_text || []);
+    } else if (blockType === "heading_3") {
+      html += reduceRichText(block.heading_3.rich_text || []);
+    } else if (blockType === "quote") {
+      html += reduceRichText(block.quote.rich_text);
+    } else if (blockType === "callout") {
+      html += reduceRichText(block.callout.rich_text);
+    } else if (blockType === "code") {
+      html += reduceRichText(block.code.rich_text, true);
+    } else if (blockType === "bulleted_list_item") {
+      html += reduceRichText(block.bulleted_list_item.rich_text);
+    } else if (blockType === "numbered_list_item") {
+      html += reduceRichText(block.numbered_list_item.rich_text);
+    } else if (blockType === "toggle") {
+      html += reduceRichText(block.toggle.rich_text);
+    } else if (blockType === "to_do") {
+      html += reduceRichText(block.to_do.rich_text);
+      html += "</div>";
+    }
   });
 
   html += "</body>";
