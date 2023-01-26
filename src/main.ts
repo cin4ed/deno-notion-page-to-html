@@ -1,4 +1,5 @@
-import { Client, BlockObjectResponse } from "../deps.ts";
+import { appendBlockChildren } from "https://deno.land/x/notion_sdk@v1.0.4/src/api-endpoints";
+import { Client, BlockObjectResponse, RichTextItemResponse } from "../deps.ts";
 // Consider that for a private page to be compiled into html you would need to
 // use the notion api and an integration token to query it. This is not the case
 // for public pages where you only need to make an http request to the url of the
@@ -39,6 +40,24 @@ async function notionPageToHtml(
   html += "</html>";
 
   return Promise.resolve(html);
+}
+
+function reduceRichText(
+  richText: RichTextItemResponse[],
+  isCode = false
+): string {
+  return richText.reduce((acc: string, curr: RichTextItemResponse): string => {
+    if (curr.annotations.bold) acc += "<b>";
+    if (curr.annotations.italic) acc += "<i>";
+    if (curr.annotations.underline) acc += "<u>";
+    if (curr.annotations.strikethrough) acc += "<s>";
+    acc += isCode ? curr.plain_text.replaceAll("\n", "<br>") : curr.plain_text;
+    if (curr.annotations.strikethrough) acc += "</s>";
+    if (curr.annotations.underline) acc += "</u>";
+    if (curr.annotations.italic) acc += "</i>";
+    if (curr.annotations.bold) acc += "</b>";
+    return acc;
+  }, "");
 }
 
 // function to get the corresponding html tag for every block.type
