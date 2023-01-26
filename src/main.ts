@@ -25,7 +25,6 @@ async function notionPageToHtml(
   `;
 
   children.results.forEach((partialBlock) => {
-    // narrow down PartialBlockObjectResponse into BlockObjectResponse
     const block = partialBlock as BlockObjectResponse;
     const blockType = block.type;
     const htmlTag = getHtmlTag(blockType);
