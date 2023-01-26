@@ -147,6 +147,15 @@ export async function notionPageToHtml(
       html += `<iframe src="${block.embed?.url}" frameborder="0" allowfullscreen></iframe>`;
       return;
     }
+
+    if (blockType == "to_do") {
+      html += `<div class="todo-item-container"><input class="todo-item" onclick="this.checked=!this.checked;" type=checkbox ${
+        block.to_do?.checked ? "checked" : ""
+      }>`;
+    } else {
+      html += `<${htmlTag}>`;
+    }
+
     if (blockType === "paragraph") {
       html += reduceRichText(block.paragraph.rich_text || []);
     } else if (blockType === "heading_1") {
@@ -191,6 +200,7 @@ export async function notionPageToHtml(
     //   html += reduceRichText(block.collection_view_page?.rich_text);
     // }
 
+    html += blockType == "to_do" ? "" : `</${htmlTag}>`;
   });
 
   html += "</body>";
