@@ -93,6 +93,15 @@ export async function notionPageToHtml(
       }
       return;
     }
+
+    if (blockType === "video") {
+      if (block.video?.type === "file") {
+        html += `<video src="${block.video?.file?.url}" controls></video>`;
+      } else if (block.video?.type === "external") {
+        html += `<video src="${block.video?.external?.url}" controls></video>`;
+      }
+      return;
+    }
     if (blockType === "paragraph") {
       html += reduceRichText(block.paragraph.rich_text || []);
     } else if (blockType === "heading_1") {
