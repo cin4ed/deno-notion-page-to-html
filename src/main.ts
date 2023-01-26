@@ -48,6 +48,12 @@ export async function notionPageToHtml(
       html += "</ol>";
       previousWasNumberedListItem = false;
     }
+
+    if (blockType !== "to_do" && previousWasTodoListItem) {
+      html += "</div>";
+      // html += "</ul>";
+      previousWasTodoListItem = false;
+    }
     if (blockType === "bulleted_list_item" && !previousWasBulletedListItem) {
       html += "<ul>";
       previousWasBulletedListItem = true;
@@ -56,6 +62,10 @@ export async function notionPageToHtml(
     if (blockType === "numbered_list_item" && !previousWasNumberedListItem) {
       html += "<ol>";
       previousWasNumberedListItem = true;
+    }
+    if (blockType === "to_do" && !previousWasTodoListItem) {
+      html += '<div class="todo-list-container">';
+      previousWasTodoListItem = true;
     }
     if (blockType === "paragraph") {
       html += reduceRichText(block.paragraph.rich_text || []);
