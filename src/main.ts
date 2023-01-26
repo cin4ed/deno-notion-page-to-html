@@ -46,6 +46,7 @@ function reduceRichText(
   isCode = false
 ): string {
   return richText.reduce((acc: string, curr: RichTextItemResponse): string => {
+    if (curr.type === "equation") acc += '<span class="inline-equation">';
     if (curr.annotations.bold) acc += "<b>";
     if (curr.annotations.italic) acc += "<i>";
     if (curr.annotations.underline) acc += "<u>";
@@ -55,6 +56,7 @@ function reduceRichText(
     if (curr.annotations.underline) acc += "</u>";
     if (curr.annotations.italic) acc += "</i>";
     if (curr.annotations.bold) acc += "</b>";
+    if (curr.type === "equation") acc += "</span>";
     return acc;
   }, "");
 }
