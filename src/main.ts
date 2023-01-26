@@ -37,7 +37,6 @@ async function notionPageToHtml(
 }
 
 // function to get the corresponding html tag for every block.type
-// and append it to the html string
 function getHtmlTag(blockType: string): string {
   switch (blockType) {
     case "paragraph":
