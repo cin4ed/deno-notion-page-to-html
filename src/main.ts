@@ -6,7 +6,7 @@ import { Client, BlockObjectResponse, RichTextItemResponse } from "../deps.ts";
 
 // First I gonna start with the private page because that's what i'm currently working
 // with.
-async function notionPageToHtml(
+export async function notionPageToHtml(
   pageId: string,
   notion: Client
 ): Promise<string> {
