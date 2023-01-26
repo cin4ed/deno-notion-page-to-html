@@ -1,4 +1,4 @@
-import { Client } from "../deps.ts";
+import { Client, BlockObjectResponse } from "../deps.ts";
 // Consider that for a private page to be compiled into html you would need to
 // use the notion api and an integration token to query it. This is not the case
 // for public pages where you only need to make an http request to the url of the
@@ -23,6 +23,11 @@ async function notionPageToHtml(
     <head>
     <body>
   `;
+
+  children.results.forEach((partialBlock) => {
+    // narrow down PartialBlockObjectResponse into BlockObjectResponse
+    const block = partialBlock as BlockObjectResponse;
+  });
 
   html += "</body>";
   html += "</html>";
