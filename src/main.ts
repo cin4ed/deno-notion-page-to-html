@@ -39,6 +39,14 @@ export async function notionPageToHtml(
       return;
     }
 
+    if (blockType !== "bulleted_list_item" && previousWasBulletedListItem) {
+      html += "</ul>";
+      previousWasBulletedListItem = false;
+    }
+    if (blockType === "bulleted_list_item" && !previousWasBulletedListItem) {
+      html += "<ul>";
+      previousWasBulletedListItem = true;
+    }
     if (blockType === "paragraph") {
       html += reduceRichText(block.paragraph.rich_text || []);
     } else if (blockType === "heading_1") {
