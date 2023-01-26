@@ -43,9 +43,19 @@ export async function notionPageToHtml(
       html += "</ul>";
       previousWasBulletedListItem = false;
     }
+
+    if (blockType !== "numbered_list_item" && previousWasNumberedListItem) {
+      html += "</ol>";
+      previousWasNumberedListItem = false;
+    }
     if (blockType === "bulleted_list_item" && !previousWasBulletedListItem) {
       html += "<ul>";
       previousWasBulletedListItem = true;
+    }
+
+    if (blockType === "numbered_list_item" && !previousWasNumberedListItem) {
+      html += "<ol>";
+      previousWasNumberedListItem = true;
     }
     if (blockType === "paragraph") {
       html += reduceRichText(block.paragraph.rich_text || []);
