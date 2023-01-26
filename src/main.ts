@@ -102,6 +102,12 @@ export async function notionPageToHtml(
       }
       return;
     }
+
+    if (blockType === "divider") {
+      html += "<hr>";
+      return;
+    }
+
     if (blockType === "paragraph") {
       html += reduceRichText(block.paragraph.rich_text || []);
     } else if (blockType === "heading_1") {
