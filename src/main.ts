@@ -133,6 +133,15 @@ export async function notionPageToHtml(
       }
       return;
     }
+
+    if (blockType == "audio") {
+      if (block.audio?.type === "file") {
+        html += `<audio src="${block.audio?.file?.url}" controls></audio>`;
+      } else if (block.audio?.type === "external") {
+        html += `<audio src="${block.audio?.external?.url}" controls></audio>`;
+      }
+      return;
+    }
     if (blockType === "paragraph") {
       html += reduceRichText(block.paragraph.rich_text || []);
     } else if (blockType === "heading_1") {
